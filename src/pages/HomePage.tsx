@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import SearchBar from '../widgets/SearchBar';
 import Cards from '../widgets/Cards';
+import data from '../assets/data/cardData.json';
 
 class HomePage extends Component {
   render() {
     return (
       <div>
         <SearchBar />
+        <Cards cards={data.data} />
       </div>
     );
   }
