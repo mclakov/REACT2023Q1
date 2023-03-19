@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
 
-class
-
-404;
-Page;
-extends
-Component;
-{
-  render();
-  {
+class NfPage extends Component {
+  render() {
     return (
       <div>
-        
+        404. Not Found Page
       </div>
     );
   }
 }
 
-export default 404;
-Page;
+export default NfPage;
