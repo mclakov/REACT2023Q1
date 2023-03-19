@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import NFPage from './pages/NFPage';
 import AboutPage from './pages/AboutPage';
+import Layout from './widgets/Layout';
 import './App.css';
 
 function App() {
@@ -10,9 +11,11 @@ function App() {
   return (
     <div className='App'>
       <Routes>
-        <Route index element={<HomePage />} />
-        <Route path='about' element={<AboutPage />} />
-        <Route path='*' element={<NFPage />} />
+        <Route path='/' element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path='about' element={<AboutPage />} />
+          <Route path='*' element={<NFPage />} />
+        </Route>
       </Routes>
     </div>
   );
