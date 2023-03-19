@@ -5,9 +5,7 @@ class Footer extends Component {
     return (
       <footer>
         <div>
-          <a
-            href='https://rs.school/js/'
-          ></a>
+          <a href='https://rs.school/js/'></a>
           <span>2023</span>
         </div>
       </footer>
