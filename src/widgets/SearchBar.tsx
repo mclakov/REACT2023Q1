@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 type SearchBarProps = Record<string, never>;
 
 type SearchBarState = Record<string, string>;
 
-class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
+class SearchBar extends Component<SearchBarProps, SearchBarState> {
   constructor(props: SearchBarProps) {
     super(props);
     this.state = {

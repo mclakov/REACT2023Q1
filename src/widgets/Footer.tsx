@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import style from './Footer.module.scss';
 
 class Footer extends Component {
   render() {
     return (
-      <footer>
+      <footer className={style.footer}>
         <div>
-          <a href='https://rs.school/js/'></a>
+          <a href='https://rs.school/js/' className={style.rsschool}></a>
           <span>2023</span>
         </div>
       </footer>
