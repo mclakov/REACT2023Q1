@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
-type SearchBarProps = Record<string, never>;
+type TSearchBarProps = Record<string, never>;
+type TSearchBarState = Record<string, string>;
 
-type SearchBarState = Record<string, string>;
-
-class SearchBar extends Component<SearchBarProps, SearchBarState> {
-  constructor(props: SearchBarProps) {
+class SearchBar extends Component<TSearchBarProps, TSearchBarState> {
+  constructor(props: TSearchBarProps) {
     super(props);
     this.state = {
       searchValue: '',
@@ -32,14 +31,12 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
     return (
       <form>
         <input
-          type='text'
+          type="text"
           value={this.state.searchValue}
           onChange={this.handleChange}
-          placeholder='Search'
+          placeholder="Search"
         ></input>
-        <button type='submit'>
-          Search
-        </button>
+        <button type="submit">Search</button>
       </form>
     );
   }

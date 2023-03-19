@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import style from './Header.module.scss';
 
 class Header extends Component {
   render() {
     return (
-      <header>
-        <div >
-          <nav >
-            <ul >
+      <header className={style.header}>
+        <div className={style.headerContainer}>
+          <nav className={style.headerMenu}>
+            <ul className={style.menuList}>
               <li>
-                <NavLink to="/" >
+                <NavLink to="/" className={style.menuLink}>
                   Home
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/about" >
+                <NavLink to="/about" className={style.menuLink}>
                   About
                 </NavLink>
               </li>

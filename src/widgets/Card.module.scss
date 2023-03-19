@@ -7,13 +7,14 @@
   box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   color: #29244e;
-  font-size: 1.1rem;
+  font-size: .8rem;
   line-height: 26px;
   transition: all 0.3s ease-in-out;
   margin: 15px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  outline: 1px solid gray;
 }
 
 .card:hover {
@@ -42,7 +43,6 @@
 
 .cardOwner {
   font-size: .8rem;
-  color: rgba(0, 0, 0, 0.54);
   margin-bottom: 10px;
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Card from './Card';
+import style from './Cards.module.scss';
 
 type TCardProps = {
   id: string;
@@ -24,7 +25,7 @@ type TCardsState = {
 class Cards extends Component<TCardsProps, TCardsState> {
   render() {
     return (
-      <div>
+      <div className={style.cards}>
         {this.props.cards.map((card) => (
           <Card key={this.props.cards.indexOf(card)} {...card} />
         ))}
