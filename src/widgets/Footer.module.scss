@@ -12,3 +12,9 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+.footerContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
