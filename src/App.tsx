@@ -7,14 +7,13 @@ import Layout from './widgets/Layout';
 import './App.css';
 
 function App() {
-
   return (
-    <div className='App'>
+    <div className="App">
       <Routes>
-        <Route path='/' element={<Layout />}>
+        <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path='about' element={<AboutPage />} />
-          <Route path='*' element={<NFPage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="*" element={<NFPage />} />
         </Route>
       </Routes>
     </div>

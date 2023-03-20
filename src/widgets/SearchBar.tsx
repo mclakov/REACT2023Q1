@@ -17,14 +17,14 @@ class SearchBar extends Component<TSearchBarProps, TSearchBarState> {
   }
 
   componentDidMount() {
-    const localStorageValue = localStorage.getItem('searchValue');
+    const localStorageValue = localStorage.getItem('value');
     if (localStorageValue) {
       this.setState({ searchValue: localStorageValue });
     }
   }
 
   componentWillUnmount() {
-    localStorage.setItem('searchValue', this.state.searchValue);
+    localStorage.setItem('value', this.state.searchValue);
   }
 
   render() {

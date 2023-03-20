@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 
 class NfPage extends Component {
   render() {
-    return (
-      <div>
-        404. Not Found Page
-      </div>
-    );
+    return <div data-testid="not-found-page">Not Found Page</div>;
   }
 }
 

@@ -6,7 +6,7 @@ import data from '../assets/data/cardData.json';
 class HomePage extends Component {
   render() {
     return (
-      <div>
+      <div data-testid="home-page">
         <SearchBar />
         <Cards cards={data.data} />
       </div>
