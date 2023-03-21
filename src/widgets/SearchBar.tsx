@@ -7,7 +7,7 @@ class SearchBar extends Component<TSearchBarProps, TSearchBarState> {
   constructor(props: TSearchBarProps) {
     super(props);
     this.state = {
-      searchValue: '',
+      searchValue: localStorage.getItem('value') || '',
     };
     this.handleChange = this.handleChange.bind(this);
   }
