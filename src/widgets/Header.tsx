@@ -19,6 +19,11 @@ class Header extends Component {
                   About
                 </NavLink>
               </li>
+              <li>
+                <NavLink to="/form" className={style.menuLink} data-testid="about-link">
+                  Form
+                </NavLink>
+              </li>
             </ul>
           </nav>
         </div>
