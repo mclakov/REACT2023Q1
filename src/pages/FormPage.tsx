@@ -3,18 +3,18 @@ import Form from '../widgets/Form';
 import UserCard from '../widgets/UserCard';
 import style from './FormPage.module.scss';
 
-type UserCardModel = {
+type TUserCardModel = {
   [key: string]: string | boolean;
 };
 
-type FormPageState = {
-  formValues: UserCardModel[];
+type TFormPageState = {
+  formValues: TUserCardModel[];
 };
 
-type FormPageProps = Record<string, never>;
+type TFormPageProps = Record<string, never>;
 
-class FormPage extends React.Component<FormPageProps, FormPageState> {
-  constructor(props: FormPageProps) {
+class FormPage extends React.Component<TFormPageProps, TFormPageState> {
+  constructor(props: TFormPageProps) {
     super(props);
     this.state = {
       formValues: [],
@@ -22,7 +22,7 @@ class FormPage extends React.Component<FormPageProps, FormPageState> {
     this.setFormValues = this.setFormValues.bind(this);
   }
 
-  setFormValues(data: UserCardModel) {
+  setFormValues(data: TUserCardModel) {
     this.setState({
       formValues: [...this.state.formValues, data],
     });
@@ -34,7 +34,7 @@ class FormPage extends React.Component<FormPageProps, FormPageState> {
         <Form setFormValues={this.setFormValues} />
         <div className={style.userCards} data-testid="user-cards">
           {this.state.formValues &&
-            this.state.formValues.map((item: UserCardModel, index: number) => (
+            this.state.formValues.map((item: TUserCardModel, index: number) => (
               <UserCard key={index} {...item} />
             ))}
         </div>

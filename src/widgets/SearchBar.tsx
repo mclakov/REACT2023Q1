@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import style from './UserCard.module.scss';
 
 type TSearchBarProps = Record<string, never>;
 type TSearchBarState = Record<string, string>;
@@ -29,14 +30,17 @@ class SearchBar extends Component<TSearchBarProps, TSearchBarState> {
 
   render() {
     return (
-      <form>
+      <form className={style.searchbar}>
         <input
           type="text"
+          className={style.searchbarInput}
           value={this.state.searchValue}
           onChange={this.handleChange}
           placeholder="Search"
         ></input>
-        <button type="submit">Search</button>
+        <button type="submit" className={style.searchbarBtn}>
+          Search
+        </button>
       </form>
     );
   }

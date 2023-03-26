@@ -1,7 +1,8 @@
 import React from 'react';
+
 import style from './Form.module.scss';
 
-type TUserCard = {
+type UserCard = {
   firstName: string;
   lastName: string;
   birthDate: string;
@@ -9,22 +10,23 @@ type TUserCard = {
   country: string;
   photo: string;
   agree: boolean;
+  [key: string]: string | boolean;
 };
 
-type TFormErrors = {
+type FormErrors = {
   [key: string]: string | boolean | undefined;
 };
 
-type TFormProps = {
-  setFormValues: (value: TUserCard) => void;
+type FormProps = {
+  setFormValues: (value: UserCard) => void;
 };
 
-type TFormState = {
-  formValues: TUserCard;
-  errors: TFormErrors;
+type FormState = {
+  formValues: UserCard;
+  errors: FormErrors;
 };
 
-class Form extends React.Component<TFormProps, TFormState> {
+class Form extends React.Component<FormProps, FormState> {
   form: React.RefObject<HTMLFormElement>;
   firstNameInput: React.RefObject<HTMLInputElement>;
   lastNameInput: React.RefObject<HTMLInputElement>;
@@ -35,7 +37,7 @@ class Form extends React.Component<TFormProps, TFormState> {
   fileInput: React.RefObject<HTMLInputElement>;
   agreeInput: React.RefObject<HTMLInputElement>;
 
-  constructor(props: TFormProps) {
+  constructor(props: FormProps) {
     super(props);
     this.form = React.createRef();
     this.firstNameInput = React.createRef();
@@ -65,9 +67,9 @@ class Form extends React.Component<TFormProps, TFormState> {
     };
   }
 
-  async validate() {
-    await this.setState({
-      formValues: {
+  async setFormState() {
+    this.setState({
+      formValues: structuredClone({
         firstName: (this.firstNameInput.current as HTMLInputElement).value,
         lastName: (this.lastNameInput.current as HTMLInputElement).value,
         birthDate: (this.birthDateInput.current as HTMLInputElement).value,
@@ -76,35 +78,28 @@ class Form extends React.Component<TFormProps, TFormState> {
         photo:
           (this.fileInput.current?.files as FileList)[0] !== undefined
             ? URL.createObjectURL((this.fileInput.current?.files as FileList)[0])
-            : require(`../../assets/img/avatar.jpg`),
+            : '',
         agree: (this.agreeInput.current as HTMLInputElement).checked,
-      },
+      }),
       errors: {},
     });
+  }
 
-    if (this.state.formValues.firstName === '') {
+  async validateField(fieldName: string) {
+    if (!this.state.formValues[fieldName]) {
       await this.setState({
-        errors: { ...this.state.errors, firstName: this.state.formValues.firstName },
+        errors: { ...this.state.errors, [fieldName]: this.state.formValues[fieldName] },
       });
     }
-    if (this.state.formValues.lastName === '') {
-      await this.setState({
-        errors: { ...this.state.errors, lastName: this.state.formValues.lastName },
-      });
-    }
-    if (this.state.formValues.birthDate === '') {
-      await this.setState({
-        errors: { ...this.state.errors, birthDate: this.state.formValues.birthDate },
-      });
-    }
-    if (!this.state.formValues.agree) {
-      await this.setState({
-        errors: {
-          ...this.state.errors,
-          agree: this.state.formValues.agree,
-        },
-      });
-    }
+  }
+
+  async validate() {
+    await this.setFormState();
+
+    await this.validateField('firstName');
+    await this.validateField('lastName');
+    await this.validateField('birthDate');
+    await this.validateField('agree');
   }
 
   handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -147,8 +142,10 @@ class Form extends React.Component<TFormProps, TFormState> {
           <label className={style.formLabel}>
             <p>
               First Name
-              {this.state?.errors.firstName === '' && (
-                <span className={style.error}>* first name should be fill</span>
+              {this.state.errors.firstName === '' && (
+                <span className={style.error} data-testid="errorFirstName">
+                  * first name should be fill
+                </span>
               )}
             </p>
             <input
@@ -159,14 +156,15 @@ class Form extends React.Component<TFormProps, TFormState> {
               placeholder="First name"
               onChange={this.handleChange}
               autoComplete="off"
-              data-testid="firstName"
             />
           </label>
           <label className={style.formLabel}>
             <p>
               Last Name
-              {this.state?.errors.lastName === '' && (
-                <span className={style.error}>* last name should be fill</span>
+              {this.state.errors.lastName === '' && (
+                <span className={style.error} data-testid="errorLastName">
+                  * last name should be fill
+                </span>
               )}
             </p>
             <input
@@ -177,14 +175,15 @@ class Form extends React.Component<TFormProps, TFormState> {
               onChange={this.handleChange}
               placeholder="Last name"
               autoComplete="off"
-              data-testid="lastName"
             />
           </label>
           <label className={style.formLabel}>
             <p>
               Birth Date
               {this.state?.errors.birthDate === '' && (
-                <span className={style.error}>* birth date should be fill</span>
+                <span className={style.error} data-testid="errorBirthDate">
+                  * birth date should be fill
+                </span>
               )}
             </p>
             <input
@@ -197,7 +196,7 @@ class Form extends React.Component<TFormProps, TFormState> {
             />
           </label>
           <p className={style.radioWrapper}>
-            Gender
+            <label className={style.formLabel}>Gender</label>
             <label>
               <input
                 type="radio"
@@ -223,9 +222,9 @@ class Form extends React.Component<TFormProps, TFormState> {
           <label className={style.formLabel}>
             Country
             <select name="country" ref={this.countrySelect} className={style.formSelect}>
-              <option value="russia">Russia</option>
-              <option value="ukraine">Ukraine</option>
-              <option value="belarus">Belarus</option>
+              <option value="Russia">Russia</option>
+              <option value="Ukraine">Ukraine</option>
+              <option value="Belarus">Belarus</option>
             </select>
           </label>
           <label className={style.formLabel}>
@@ -241,9 +240,11 @@ class Form extends React.Component<TFormProps, TFormState> {
               onChange={this.handleChange}
               data-testid="agree"
             />
-            I agree to Terms and Conditions
+            I agree to the Terms and Conditions
             {this.state?.errors.agree !== undefined && (
-              <p className={style.error}>* agree should be checked</p>
+              <p className={style.error} data-testid="errorAgree">
+                * agree should be checked
+              </p>
             )}
           </label>
           <input
