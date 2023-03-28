@@ -22,6 +22,15 @@ test('Router test home', () => {
   expect(screen.getByTestId('home-page')).toBeInTheDocument();
 });
 
+test('Router test form', () => {
+  render(
+    <MemoryRouter initialEntries={['/form']}>
+      <App />
+    </MemoryRouter>
+  );
+  expect(screen.getByTestId('form-page')).toBeInTheDocument();
+});
+
 test('Error page test', () => {
   render(
     <MemoryRouter initialEntries={['/aaassa']}>

@@ -72,7 +72,7 @@ class Form extends React.Component<TFormProps, TFormState> {
 
   async setFormState() {
     this.setState({
-      formValues: structuredClone({
+      formValues: {
         firstName: (this.firstNameInput.current as HTMLInputElement).value,
         lastName: (this.lastNameInput.current as HTMLInputElement).value,
         birthDate: (this.birthDateInput.current as HTMLInputElement).value,
@@ -83,7 +83,7 @@ class Form extends React.Component<TFormProps, TFormState> {
             ? URL.createObjectURL((this.fileInput.current?.files as FileList)[0])
             : avatar,
         agree: (this.agreeInput.current as HTMLInputElement).checked,
-      }),
+      },
       errors: {},
       formMessage: false,
     });
@@ -147,7 +147,7 @@ class Form extends React.Component<TFormProps, TFormState> {
 
   render() {
     return (
-      <div data-testid="form" className={style.formWrapper}>
+      <div className={style.formWrapper} data-testid="form">
         <form className={style.form} onSubmit={this.handleSubmit} ref={this.form}>
           <label className={style.formLabel}>
             <p>
