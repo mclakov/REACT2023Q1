@@ -2,7 +2,7 @@ import React from 'react';
 
 import style from './Form.module.scss';
 
-type UserCard = {
+type TUserCard = {
   firstName: string;
   lastName: string;
   birthDate: string;
@@ -13,20 +13,21 @@ type UserCard = {
   [key: string]: string | boolean;
 };
 
-type FormErrors = {
+type TFormErrors = {
   [key: string]: string | boolean | undefined;
 };
 
-type FormProps = {
-  setFormValues: (value: UserCard) => void;
+type TFormProps = {
+  setFormValues: (value: TUserCard) => void;
 };
 
-type FormState = {
-  formValues: UserCard;
-  errors: FormErrors;
+type TFormState = {
+  formValues: TUserCard;
+  errors: TFormErrors;
+  formMessage: boolean;
 };
 
-class Form extends React.Component<FormProps, FormState> {
+class Form extends React.Component<TFormProps, TFormState> {
   form: React.RefObject<HTMLFormElement>;
   firstNameInput: React.RefObject<HTMLInputElement>;
   lastNameInput: React.RefObject<HTMLInputElement>;
@@ -37,7 +38,7 @@ class Form extends React.Component<FormProps, FormState> {
   fileInput: React.RefObject<HTMLInputElement>;
   agreeInput: React.RefObject<HTMLInputElement>;
 
-  constructor(props: FormProps) {
+  constructor(props: TFormProps) {
     super(props);
     this.form = React.createRef();
     this.firstNameInput = React.createRef();
@@ -64,6 +65,7 @@ class Form extends React.Component<FormProps, FormState> {
         agree: false,
       },
       errors: {},
+      formMessage: false,
     };
   }
 
@@ -82,6 +84,7 @@ class Form extends React.Component<FormProps, FormState> {
         agree: (this.agreeInput.current as HTMLInputElement).checked,
       }),
       errors: {},
+      formMessage: true,
     });
   }
 
@@ -130,6 +133,9 @@ class Form extends React.Component<FormProps, FormState> {
       this.props.setFormValues(this.state.formValues);
 
       this.form.current?.reset();
+      setTimeout(() => {
+        this.setState({ formMessage: false });
+      }, 3000);
       (this.agreeInput.current as HTMLInputElement).checked = false;
       (this.birthDateInput.current as HTMLInputElement).value = '';
     }
@@ -254,6 +260,11 @@ class Form extends React.Component<FormProps, FormState> {
             value="Submit"
             data-testid="formSubmit"
           />
+          {this.state.formMessage && (
+            <p style={{ color: 'green' }} className="form-add">
+              User was created
+            </p>
+          )}
         </form>
       </div>
     );
