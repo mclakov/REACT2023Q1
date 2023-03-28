@@ -1,4 +1,5 @@
 import React from 'react';
+import avatar from '../assets/data/avatar';
 
 import style from './Form.module.scss';
 
@@ -80,11 +81,11 @@ class Form extends React.Component<TFormProps, TFormState> {
         photo:
           (this.fileInput.current?.files as FileList)[0] !== undefined
             ? URL.createObjectURL((this.fileInput.current?.files as FileList)[0])
-            : '',
+            : avatar,
         agree: (this.agreeInput.current as HTMLInputElement).checked,
       }),
       errors: {},
-      formMessage: true,
+      formMessage: false,
     });
   }
 
@@ -133,6 +134,9 @@ class Form extends React.Component<TFormProps, TFormState> {
       this.props.setFormValues(this.state.formValues);
 
       this.form.current?.reset();
+      setTimeout(() => {
+        this.setState({ formMessage: true });
+      }, 0);
       setTimeout(() => {
         this.setState({ formMessage: false });
       }, 3000);
