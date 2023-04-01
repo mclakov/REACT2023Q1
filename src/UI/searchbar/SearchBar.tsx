@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import style from './UserCard.module.scss';
+import style from '../usercard/UserCard.module.scss';
 
 type TSearchBarProps = Record<string, never>;
 type TSearchBarState = Record<string, string>;

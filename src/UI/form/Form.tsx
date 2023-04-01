@@ -1,5 +1,5 @@
 import React from 'react';
-import avatar from '../assets/data/avatar';
+import avatar from '../../assets/data/avatar';
 
 import style from './Form.module.scss';
 

@@ -6,7 +6,7 @@ class Footer extends Component {
     return (
       <footer className={style.footer}>
         <div className={style.footerContainer}>
-          <a href="https://rs.school/js/" className={style.rsschool}></a>
+          <a href="UI/footer/Footer" className={style.rsschool}></a>
           <span>2023</span>
         </div>
       </footer>

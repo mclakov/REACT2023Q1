@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import NFPage from './pages/NFPage';
-import AboutPage from './pages/AboutPage';
-import FormPage from './pages/FormPage';
-import Layout from './widgets/Layout';
+import HomePage from './pages/home/HomePage';
+import NFPage from './pages/nf/NFPage';
+import AboutPage from './pages/about/AboutPage';
+import FormPage from './pages/form/FormPage';
+import Layout from './UI/layout/Layout';
 import './App.css';
 
 function App() {

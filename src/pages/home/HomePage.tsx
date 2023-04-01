@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import SearchBar from '../widgets/SearchBar';
-import Cards from '../widgets/Cards';
-import data from '../assets/data/cardData.json';
+import SearchBar from '../../UI/searchbar/SearchBar';
+import Cards from '../../UI/cards/Cards';
+import data from '../../assets/data/cardData.json';
 
 class HomePage extends Component {
   render() {

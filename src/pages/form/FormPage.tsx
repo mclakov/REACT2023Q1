@@ -1,6 +1,6 @@
 import React from 'react';
-import Form from '../widgets/Form';
-import UserCard from '../widgets/UserCard';
+import Form from '../../UI/form/Form';
+import UserCard from '../../UI/usercard/UserCard';
 import style from './FormPage.module.scss';
 
 type TUserCardModel = {
