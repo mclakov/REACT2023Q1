@@ -1,37 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Card from '../card/Card';
 import style from './Cards.module.scss';
+import { TCardsProps } from '../../types';
 
-type TCardProps = {
-  id: string;
-  title: string;
-  author: string;
-  url: string;
-  date: string;
-  views: string;
-  likes: string;
-  dislikes: string;
-  comments: string;
+const Cards = (props: TCardsProps) => {
+  return (
+    <div className={style.cards}>
+      {props.cards.map((card) => (
+        <Card key={props.cards.indexOf(card)} {...card} />
+      ))}
+    </div>
+  );
 };
-
-type TCardsProps = {
-  cards: TCardProps[];
-};
-
-type TCardsState = {
-  state: Record<string, never>;
-};
-
-class Cards extends Component<TCardsProps, TCardsState> {
-  render() {
-    return (
-      <div className={style.cards}>
-        {this.props.cards.map((card) => (
-          <Card key={this.props.cards.indexOf(card)} {...card} />
-        ))}
-      </div>
-    );
-  }
-}
 
 export default Cards;

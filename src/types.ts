@@ -15,3 +15,7 @@ export type TCardProps = {
   dislikes: string;
   comments: string;
 };
+
+export type TCardsProps = {
+  cards: TCardProps[];
+};
