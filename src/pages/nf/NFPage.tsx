@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class NfPage extends Component {
-  render() {
-    return <div data-testid="not-found-page">Not Found Page</div>;
-  }
-}
+const NfPage = () => {
+  return <div data-testid="not-found-page">Not Found Page</div>;
+};
 
 export default NfPage;
