@@ -1,46 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Form from '../../UI/form/Form';
 import UserCard from '../../UI/usercard/UserCard';
 import style from './FormPage.module.scss';
+import { TFormPageProps, TUserCardModel } from '../../types';
 
-type TUserCardModel = {
-  [key: string]: string | boolean;
-};
+const FormPage = (props: TFormPageProps) => {
+  const [formValues, setFormValues] = useState<TUserCardModel[]>([]);
 
-type TFormPageState = {
-  formValues: TUserCardModel[];
-};
-
-type TFormPageProps = Record<string, never>;
-
-class FormPage extends React.Component<TFormPageProps, TFormPageState> {
-  constructor(props: TFormPageProps) {
-    super(props);
-    this.state = {
-      formValues: [],
-    };
-    this.setFormValues = this.setFormValues.bind(this);
+  function setValues(data: TUserCardModel) {
+    setFormValues([...formValues, data]);
   }
 
-  setFormValues(data: TUserCardModel) {
-    this.setState({
-      formValues: [...this.state.formValues, data],
-    });
-  }
-
-  render() {
-    return (
-      <div data-testid="form-page">
-        <Form setFormValues={this.setFormValues} />
-        <div className={style.userCards} data-testid="user-cards">
-          {this.state.formValues &&
-            this.state.formValues.map((item: TUserCardModel, index: number) => (
-              <UserCard key={index} {...item} />
-            ))}
-        </div>
+  return (
+    <div data-testid="form-page">
+      <Form setFormValues={setValues} />
+      <div className={style.userCards} data-testid="user-cards">
+        {formValues &&
+          formValues.map((item: TUserCardModel, index: number) => (
+            <UserCard key={index} {...item} />
+          ))}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default FormPage;
