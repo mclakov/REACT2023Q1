@@ -4,8 +4,6 @@ import { TUserCardModel } from '../../types';
 import avatar from '../../assets/data/avatar';
 
 const UserCard = (props: TUserCardModel) => {
-
-  console.log('props.photo[0]', props);
   const src = props.photo[0] ? URL.createObjectURL(props.photo[0]) : avatar;
 
   return (

@@ -115,7 +115,11 @@ export const Form = ({ setValues }: TFormProps) => {
         </label>
         <label className={style.formLabel}>
           Profile picture
-          <input type="file" {...register('photo', { required: false })} className={style.fileInput} />
+          <input
+            type="file"
+            {...register('photo', { required: false })}
+            className={style.fileInput}
+          />
         </label>
         <label className={style.formLabel}>
           <input

@@ -4,7 +4,7 @@ export type TUserCardModel = {
   birthDate: string;
   gender: string;
   country: string;
-  photo: string;
+  photo: FileList;
   agree: boolean;
 };
 
@@ -30,7 +30,7 @@ export type TUserCard = {
   birthDate: string;
   gender: string;
   country: string;
-  photo: string;
+  photo: FileList;
   agree: boolean;
 };
 
