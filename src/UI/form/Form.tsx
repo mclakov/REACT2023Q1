@@ -1,4 +1,5 @@
 import React from 'react';
+import structuredClone from '@ungap/structured-clone';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import style from './Form.module.scss';
 import { TFormProps, TUserCard } from '../../types';
