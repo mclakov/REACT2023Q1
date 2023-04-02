@@ -1,8 +1,12 @@
 export type TUserCardModel = {
-  [key: string]: string | boolean;
+  firstName: string;
+  lastName: string;
+  birthDate: string;
+  gender: string;
+  country: string;
+  photo: FileList;
+  agree: boolean;
 };
-
-export type TFormPageProps = Record<string, never>;
 
 export type TCardProps = {
   id: string;
@@ -18,4 +22,22 @@ export type TCardProps = {
 
 export type TCardsProps = {
   cards: TCardProps[];
+};
+
+export type TUserCard = {
+  firstName: string;
+  lastName: string;
+  birthDate: string;
+  gender: string;
+  country: string;
+  photo: FileList;
+  agree: boolean;
+};
+
+export type TFormProps = {
+  setValues: (value: TUserCard) => void;
+};
+
+export type TUserCardProps = {
+  [key: string]: string | number;
 };

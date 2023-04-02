@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Form from '../../UI/form/Form';
 import UserCard from '../../UI/usercard/UserCard';
 import style from './FormPage.module.scss';
-import { TFormPageProps, TUserCardModel } from '../../types';
+import { TUserCardModel } from '../../types';
 
-const FormPage = (props: TFormPageProps) => {
+const FormPage = () => {
   const [formValues, setFormValues] = useState<TUserCardModel[]>([]);
 
   function setValues(data: TUserCardModel) {
@@ -13,7 +13,7 @@ const FormPage = (props: TFormPageProps) => {
 
   return (
     <div data-testid="form-page">
-      <Form setFormValues={setValues} />
+      <Form setValues={setValues} />
       <div className={style.userCards} data-testid="user-cards">
         {formValues &&
           formValues.map((item: TUserCardModel, index: number) => (
