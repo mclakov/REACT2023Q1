@@ -37,3 +37,8 @@ export type TUserCard = {
 export type TFormProps = {
   setValues: (value: TUserCard) => void;
 };
+
+export type TSearchBarProps = {
+  searchValue: string;
+  onSearchBarChange: (value: string) => void;
+};

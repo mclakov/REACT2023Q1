@@ -1,49 +1,31 @@
-import React, { Component } from 'react';
-import style from '../usercard/UserCard.module.scss';
+import React from 'react';
+import style from './SearchBar.module.scss';
+import { TSearchBarProps } from '../../types';
 
-type TSearchBarProps = Record<string, never>;
-type TSearchBarState = Record<string, string>;
+const SearchBar = ({ searchValue, onSearchBarChange }: TSearchBarProps) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { value } = event.target;
+    onSearchBarChange(value);
+  };
 
-class SearchBar extends Component<TSearchBarProps, TSearchBarState> {
-  constructor(props: TSearchBarProps) {
-    super(props);
-    this.state = {
-      searchValue: localStorage.getItem('value') || '',
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+  };
 
-  handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    this.setState({ searchValue: event.target.value });
-  }
-
-  componentDidMount() {
-    const localStorageValue = localStorage.getItem('value');
-    if (localStorageValue) {
-      this.setState({ searchValue: localStorageValue });
-    }
-  }
-
-  componentWillUnmount() {
-    localStorage.setItem('value', this.state.searchValue);
-  }
-
-  render() {
-    return (
-      <form className={style.searchbar}>
-        <input
-          type="text"
-          className={style.searchbarInput}
-          value={this.state.searchValue}
-          onChange={this.handleChange}
-          placeholder="Search"
-        ></input>
-        <button type="submit" className={style.searchbarBtn}>
-          Search
-        </button>
-      </form>
-    );
-  }
-}
+  return (
+    <form className={style.searchbar} onSubmit={handleSubmit}>
+      <input
+        type="text"
+        className={style.searchbarInput}
+        value={searchValue}
+        onChange={handleChange}
+        placeholder="Search"
+      ></input>
+      <button type="submit" className={style.searchbarBtn} data-testid="search-btn">
+        Search
+      </button>
+    </form>
+  );
+};
 
 export default SearchBar;
