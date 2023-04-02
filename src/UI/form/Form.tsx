@@ -19,7 +19,7 @@ export const Form = ({ setValues }: TFormProps) => {
   });
 
   const onSubmit: SubmitHandler<TUserCard> = (data) => {
-    setValues(data);
+    setValues(structuredClone(data));
     reset();
   };
 
@@ -115,7 +115,7 @@ export const Form = ({ setValues }: TFormProps) => {
         </label>
         <label className={style.formLabel}>
           Profile picture
-          <input type="file" {...register('photo')} className={style.fileInput} />
+          <input type="file" {...register('photo', { required: false })} className={style.fileInput} />
         </label>
         <label className={style.formLabel}>
           <input

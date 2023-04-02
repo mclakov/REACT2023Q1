@@ -4,7 +4,7 @@ export type TUserCardModel = {
   birthDate: string;
   gender: string;
   country: string;
-  photo: FileList;
+  photo: string;
   agree: boolean;
 };
 
@@ -30,14 +30,10 @@ export type TUserCard = {
   birthDate: string;
   gender: string;
   country: string;
-  photo: FileList;
+  photo: string;
   agree: boolean;
 };
 
 export type TFormProps = {
   setValues: (value: TUserCard) => void;
-};
-
-export type TUserCardProps = {
-  [key: string]: string | number;
 };

@@ -8,6 +8,7 @@ const FormPage = () => {
   const [formValues, setFormValues] = useState<TUserCardModel[]>([]);
 
   function setValues(data: TUserCardModel) {
+    console.log('data', data);
     setFormValues([...formValues, data]);
   }
 
