@@ -9,10 +9,10 @@ export type TUserCardModel = {
 };
 
 export type TCardProps = {
+  url_n: string;
   id: string;
   title: string;
   author: string;
-  url: string;
   date: string;
   views: string;
   likes: string;
@@ -41,4 +41,37 @@ export type TFormProps = {
 export type TSearchBarProps = {
   searchValue: string;
   onSearchBarChange: (value: string) => void;
+};
+
+export type TImage = {
+  id: string;
+  owner: string;
+  secret: string;
+  server: string;
+  farm: number;
+  title: string;
+  ispublic: number;
+  isfriend: number;
+  isfamily: number;
+  datetaken: string;
+  datetakengranularity: number;
+  datetakenunknown: number;
+  ownername: string;
+  views: number;
+  url_n: string;
+  height_h: string;
+  width_h: string;
+};
+
+export type TSearchParams = {
+  method: string;
+  api_key: string;
+  tags: string;
+  extras: string;
+  page: string;
+  format: string;
+  nojsoncallback: string;
+  sort: string;
+  per_page: string;
+  [key: string]: string;
 };
