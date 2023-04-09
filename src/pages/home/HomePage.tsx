@@ -39,7 +39,7 @@ export const HomePage = () => {
       setSearchValue(localStorageValue);
       fetchImages(localStorageValue);
     } else {
-      fetchImages('nature,flowers');
+      fetchImages('cats');
     }
   }, []);
 

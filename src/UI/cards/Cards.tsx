@@ -13,9 +13,9 @@ export const Cards = ({ cards }: TCardsProps) => {
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchImageInfo = async () => {
+  const fetchImageInfo = async (id: string) => {
     const params: TSearchInfoParams = {
-      photo_id: currentImageId,
+      photo_id: id,
     };
     try {
       const fetchedImageInfo = await flickr('photos.getInfo', params);
@@ -25,9 +25,9 @@ export const Cards = ({ cards }: TCardsProps) => {
     }
   };
 
-  const fetchImageSizes = async () => {
+  const fetchImageSizes = async (id: string) => {
     const params: TSearchInfoParams = {
-      photo_id: currentImageId,
+      photo_id: id,
     };
     try {
       const fetchedImageSizes = await flickr('photos.getSizes', params);
@@ -42,23 +42,20 @@ export const Cards = ({ cards }: TCardsProps) => {
     }
   };
 
-  const fetchData = async () => {
+  const fetchData = async (id: string) => {
     if (currentImageId) {
       setIsLoading(true);
-      await fetchImageInfo();
-      await fetchImageSizes();
+      await fetchImageInfo(id);
+      await fetchImageSizes(id);
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchData();
-  }, [currentImageId, viewerIsOpen]);
 
   const handleClick = (id: string) => {
     setCurrentImageId(id);
     setViewerIsOpen(true);
     setIsLoading(true);
+    fetchData(id);
   };
 
   const handleClose = () => {
