@@ -2,7 +2,11 @@ import React from 'react';
 import style from './SearchBar.module.scss';
 import { TSearchBarProps } from '../../types';
 
-const SearchBar = ({ searchValue, onSearchBarChange }: TSearchBarProps) => {
+export const SearchBar = ({
+  searchValue,
+  onSearchBarChange,
+  onSearchBarSubmit,
+}: TSearchBarProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
     onSearchBarChange(value);
@@ -10,6 +14,9 @@ const SearchBar = ({ searchValue, onSearchBarChange }: TSearchBarProps) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+    if (searchValue) {
+      onSearchBarSubmit();
+    }
   };
 
   return (

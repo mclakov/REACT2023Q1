@@ -41,6 +41,7 @@ export type TFormProps = {
 export type TSearchBarProps = {
   searchValue: string;
   onSearchBarChange: (value: string) => void;
+  onSearchBarSubmit: () => void;
 };
 
 export type TImage = {
