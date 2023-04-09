@@ -21,9 +21,16 @@ export type TUserCard = {
   photo: FileList;
   agree: boolean;
 };
-
+export type TSearchInfoParams = {
+  photo_id: string;
+};
 export type TFormProps = {
   setValues: (value: TUserCard) => void;
+};
+
+export type TImageSize = {
+  label: string;
+  source: string;
 };
 
 export type TSearchBarProps = {

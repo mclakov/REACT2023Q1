@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import SearchBar from '../../UI/searchbar/SearchBar';
 import Cards from '../../UI/cards/Cards';
-import { stringify } from 'querystring';
 import { TImage, TSearchParams } from '../../types';
 
 const HomePage = () => {
@@ -44,9 +43,7 @@ const HomePage = () => {
     Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
     const response = await fetch(url.href);
     let fetchedImages = await response.json();
-
     fetchedImages = fetchedImages.photos.photo.filter((item: TImage) => item.url_n);
-    console.log('fetchedImages', fetchedImages);
     setImages(fetchedImages);
   }
 
