@@ -7,10 +7,7 @@ type TCardProps = {
   handleClick: (id: string) => void;
 };
 
-export const Card = ({ card }: TCardProps) => {
-  function handleClick(id: string) {
-    console.log('id', id);
-  }
+export const Card = ({ card, handleClick }: TCardProps) => {
   const { id, url_n, title, ownername, datetaken, views } = card;
 
   return (
