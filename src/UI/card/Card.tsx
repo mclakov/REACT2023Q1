@@ -1,8 +1,8 @@
 import React from 'react';
 import style from './Card.module.scss';
-import { TCardProps, TImage } from '../../types';
+import { TImage } from '../../types';
 
-export const Card = ({ card, handleClick }: TCardProps) => {
+export const Card = ({ card, handleClick }: TImage) => {
   const { id, url_n, title, ownername, datetaken, views } = card;
 
   return (

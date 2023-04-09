@@ -8,18 +8,6 @@ export type TUserCardModel = {
   agree: boolean;
 };
 
-export type TCardProps = {
-  url_n: string;
-  id: string;
-  title: string;
-  author: string;
-  date: string;
-  views: string;
-  likes: string;
-  dislikes: string;
-  comments: string;
-};
-
 export type TCardsProps = {
   cards: TImage[];
 };
@@ -62,6 +50,31 @@ export type TImage = {
   url_n: string;
   height_h: string;
   width_h: string;
+};
+
+export type TTag = {
+  id: string;
+  _content: string;
+};
+
+export type TImageInfo = {
+  id: string;
+  description: {
+    _content: string;
+  };
+  owner: {
+    username: string;
+  };
+  title: {
+    _content: string;
+  };
+  tags: {
+    tag: TTag[];
+  };
+  dates: {
+    taken: string;
+  };
+  views: string;
 };
 
 export type TSearchParams = {
