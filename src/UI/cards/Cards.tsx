@@ -13,9 +13,9 @@ export const Cards = ({ cards }: TCardsProps) => {
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchImageInfo = async (id: string) => {
+  const fetchImageInfo = async () => {
     const params: TSearchInfoParams = {
-      photo_id: id,
+      photo_id: currentImageId,
     };
     try {
       const fetchedImageInfo = await flickr('photos.getInfo', params);
@@ -25,9 +25,9 @@ export const Cards = ({ cards }: TCardsProps) => {
     }
   };
 
-  const fetchImageSizes = async (id: string) => {
+  const fetchImageSizes = async () => {
     const params: TSearchInfoParams = {
-      photo_id: id,
+      photo_id: currentImageId,
     };
     try {
       const fetchedImageSizes = await flickr('photos.getSizes', params);
@@ -42,20 +42,24 @@ export const Cards = ({ cards }: TCardsProps) => {
     }
   };
 
-  const fetchData = async (id: string) => {
+  const fetchData = async () => {
     if (currentImageId) {
       setIsLoading(true);
-      await fetchImageInfo(id);
-      await fetchImageSizes(id);
+      await fetchImageInfo();
+      await fetchImageSizes();
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentImageId, viewerIsOpen]);
 
   const handleClick = (id: string) => {
     setCurrentImageId(id);
     setViewerIsOpen(true);
     setIsLoading(true);
-    fetchData(id);
   };
 
   const handleClose = () => {
