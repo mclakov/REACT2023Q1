@@ -21,7 +21,7 @@ export type TCardProps = {
 };
 
 export type TCardsProps = {
-  cards: TCardProps[];
+  cards: TImage[];
 };
 
 export type TUserCard = {
