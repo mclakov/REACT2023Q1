@@ -48,7 +48,6 @@ const HomePage = () => {
     fetchedImages = fetchedImages.photos.photo.filter((item: TImage) => item.url_n);
     console.log('fetchedImages', fetchedImages);
     setImages(fetchedImages);
-
   }
 
   return (

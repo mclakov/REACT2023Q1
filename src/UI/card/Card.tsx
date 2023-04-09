@@ -2,7 +2,15 @@ import React from 'react';
 import style from './Card.module.scss';
 import { TImage } from '../../types';
 
-export const Card = ({ card, handleClick }: TImage) => {
+type TCardProps = {
+  card: TImage;
+  handleClick: (id: string) => void;
+};
+
+export const Card = ({ card }: TCardProps) => {
+  function handleClick(id: string) {
+    console.log('id', id);
+  }
   const { id, url_n, title, ownername, datetaken, views } = card;
 
   return (

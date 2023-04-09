@@ -6,7 +6,7 @@ import { TCardsProps } from '../../types';
 const Cards = (props: TCardsProps) => {
   return (
     <div className={style.cards} data-testid="cards">
-      {props.cards && props.cards.map((card) => <Card key={card.id} {...card} />)}
+      {props.cards && props.cards.map((card) => <Card key={card.id} card={card} />)}
     </div>
   );
 };
