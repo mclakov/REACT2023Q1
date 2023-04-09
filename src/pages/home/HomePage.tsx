@@ -1,56 +1,74 @@
-import React, { useEffect, useRef, useState } from 'react';
-import SearchBar from '../../UI/searchbar/SearchBar';
+import React, { useEffect, useState } from 'react';
+import { flickr } from '../../common/flickr';
 import Cards from '../../UI/cards/Cards';
-import { TImage, TSearchParams } from '../../types';
+import Spinner from '../../UI/spinner/Spinner';
+import SearchBar from '../../UI/searchbar/SearchBar';
+import { TImage, TSearchImagesParams } from '../../types';
 
-const HomePage = () => {
-  const API_KEY = '432a4d95ad5ea34f1b057c492bbfdc47';
-
+export const HomePage = () => {
   const [searchValue, setSearchValue] = useState('');
-  const [images, setImages] = useState([]);
-  const searchValueRef = useRef('');
-  searchValueRef.current = searchValue;
+  const [isLoading, setIsLoading] = useState(true);
+  const [images, setImages] = useState<TImage[]>([]);
+  const [error, setError] = useState<Error | null>(null);
+
+  const fetchImages = async (searchValue: string) => {
+    setIsLoading(true);
+    const params: TSearchImagesParams = {
+      tags: searchValue,
+      extras: 'url_n,owner_name,date_taken,views',
+      page: '1',
+      sort: 'interestingness-desc',
+      per_page: '100',
+    };
+
+    try {
+      const fetchedImages = await flickr('photos.search', params);
+      setImages(fetchedImages.photos.photo.filter((item: TImage) => item.url_n));
+      setError(null);
+    } catch (err) {
+      setImages([]);
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     const localStorageValue = localStorage.getItem('searchValue');
-    fetchImages();
     if (localStorageValue) {
       setSearchValue(localStorageValue);
+      fetchImages(localStorageValue);
+    } else {
+      fetchImages('nature,flowers');
     }
-    return () => {
-      localStorage.setItem('searchValue', searchValueRef.current as string);
-    };
   }, []);
+
+  useEffect(() => {
+    return () => {
+      localStorage.setItem('searchValue', searchValue);
+    };
+  }, [searchValue]);
 
   const handleSearchBarChange = (value: string) => {
     setSearchValue(value);
   };
 
-  async function fetchImages() {
-    const url = new URL('https://www.flickr.com/services/rest');
+  const handleSearchBarSubmit = () => {
+    fetchImages(searchValue);
+  };
 
-    const params: TSearchParams = {
-      method: 'flickr.photos.getRecent',
-      api_key: API_KEY,
-      tags: searchValue,
-      extras: 'url_n,owner_name,date_taken,views',
-      page: '1',
-      format: 'json',
-      nojsoncallback: '1',
-      sort: 'interestingness-desc',
-      per_page: '50',
-    };
-    Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
-    const response = await fetch(url.href);
-    let fetchedImages = await response.json();
-    fetchedImages = fetchedImages.photos.photo.filter((item: TImage) => item.url_n);
-    setImages(fetchedImages);
-  }
+  const notFound = !error && !isLoading && images.length === 0 ? 'Nothing found' : null;
 
   return (
     <div data-testid="home-page">
-      <SearchBar searchValue={searchValue} onSearchBarChange={handleSearchBarChange} />
-      <Cards cards={images} />
+      <SearchBar
+        searchValue={searchValue}
+        onSearchBarChange={handleSearchBarChange}
+        onSearchBarSubmit={handleSearchBarSubmit}
+      />
+      {error && <div>Error occurred</div>}
+      {isLoading ? <Spinner /> : <Cards cards={images} />}
+      {notFound}
     </div>
   );
 };

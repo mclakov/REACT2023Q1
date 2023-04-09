@@ -39,26 +39,6 @@ export type TSearchBarProps = {
   onSearchBarSubmit: () => void;
 };
 
-export type TImage = {
-  id: string;
-  owner: string;
-  secret: string;
-  server: string;
-  farm: number;
-  title: string;
-  ispublic: number;
-  isfriend: number;
-  isfamily: number;
-  datetaken: string;
-  datetakengranularity: number;
-  datetakenunknown: number;
-  ownername: string;
-  views: number;
-  url_n: string;
-  height_h: string;
-  width_h: string;
-};
-
 export type TTag = {
   id: string;
   _content: string;
@@ -87,13 +67,8 @@ export type TImageInfo = {
 export type TSearchParams = {
   method: string;
   api_key: string;
-  tags: string;
-  extras: string;
-  page: string;
   format: string;
   nojsoncallback: string;
-  sort: string;
-  per_page: string;
   [key: string]: string;
 };
 
@@ -104,4 +79,16 @@ export type TSearchImagesParams = {
   sort: string;
   per_page: string;
   [key: string]: string;
+};
+
+export type TImage = {
+  id: string;
+  owner: string;
+  title: string;
+  datetaken: string;
+  ownername: string;
+  views: number;
+  url_n: string;
+  height_n: string;
+  width_n: string;
 };
