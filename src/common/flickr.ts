@@ -1,11 +1,11 @@
 import { response } from 'msw';
 import { API_KEY } from '../common/constants';
-import { SearchImagesParams, SearchInfoParams, SearchParams } from '../types/types';
+import { TSearchImagesParams, TSearchInfoParams, TSearchParams } from '../types';
 
-export async function flickr(method: string, params: SearchImagesParams | SearchInfoParams) {
+export async function flickr(method: string, params: TSearchImagesParams | TSearchInfoParams) {
   try {
     const url = new URL('https://www.flickr.com/services/rest');
-    const flickrParams: SearchParams = {
+    const flickrParams: TSearchParams = {
       method: `flickr.${method}`,
       api_key: API_KEY,
       format: 'json',

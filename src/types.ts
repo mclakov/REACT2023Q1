@@ -96,3 +96,12 @@ export type TSearchParams = {
   per_page: string;
   [key: string]: string;
 };
+
+export type TSearchImagesParams = {
+  tags: string;
+  extras: string;
+  page: string;
+  sort: string;
+  per_page: string;
+  [key: string]: string;
+};
