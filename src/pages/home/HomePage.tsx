@@ -6,7 +6,7 @@ import SearchBar from '../../UI/searchbar/SearchBar';
 import { TImage, TSearchImagesParams } from '../../types';
 
 export const HomePage = () => {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState(localStorage.getItem('searchValue') || '');
   const [isLoading, setIsLoading] = useState(true);
   const [images, setImages] = useState<TImage[]>([]);
   const [error, setError] = useState<Error | null>(null);
@@ -44,18 +44,13 @@ export const HomePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    return () => {
-      localStorage.setItem('searchValue', searchValue);
-    };
-  }, [searchValue]);
-
   const handleSearchBarChange = (value: string) => {
     setSearchValue(value);
   };
 
   const handleSearchBarSubmit = () => {
     fetchImages(searchValue);
+    localStorage.setItem('searchValue', searchValue);
   };
 
   const notFound = !error && !isLoading && images.length === 0 ? 'Nothing found' : null;
