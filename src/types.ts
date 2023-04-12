@@ -50,6 +50,7 @@ export type TImageInfo = {
     _content: string;
   };
   owner: {
+    location: string;
     username: string;
   };
   title: {
