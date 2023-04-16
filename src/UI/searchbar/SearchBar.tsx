@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setSearchValue, setCurrentPage, resetPage, fetchImages } from '../../features/search';
 import style from './SearchBar.module.scss';
-import { TSearchBarProps } from '../../types';
 
-export const SearchBar = ({
-  searchValue,
-  onSearchBarChange,
-  onSearchBarSubmit,
-}: TSearchBarProps) => {
+export const SearchBar = () => {
+  const { searchValue, sortBy, resultsPerPage, currentPage } = useAppSelector(
+    (state) => state.search
+  );
+  const dispatch = useAppDispatch();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
-    onSearchBarChange(value);
+    dispatch(setSearchValue(value));
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     if (searchValue) {
-      onSearchBarSubmit();
+      dispatch(fetchImages({ searchValue, sortBy, resultsPerPage, currentPage }));
+      dispatch(setCurrentPage(1));
+      dispatch(resetPage());
     }
   };
 

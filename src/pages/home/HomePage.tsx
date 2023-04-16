@@ -7,13 +7,6 @@ import { TImage, TSearchImagesParams } from '../../types';
 import { useAppSelector } from '../../hooks';
 import { setSearchValue } from '../../features/search';
 
-type SearchOptions = {
-  searchValue: string;
-  sortBy: string;
-  perPage: number;
-  currentPage: number;
-};
-
 export const HomePage = () => {
   const { searchValue, images, error, isLoading } = useAppSelector((state) => state.search);
 
@@ -28,7 +21,6 @@ export const HomePage = () => {
   return (
     <div data-testid="home-page">
       <SearchBar />
-      <SearchOptions />
       {error && <div>{error}</div>}
       {isLoading ? (
         <Spinner />
