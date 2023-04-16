@@ -1,69 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { flickr } from '../../common/flickr';
 import Cards from '../../UI/cards/Cards';
 import Spinner from '../../UI/spinner/Spinner';
 import SearchBar from '../../UI/searchbar/SearchBar';
 import { TImage, TSearchImagesParams } from '../../types';
+import { useAppSelector } from '../../hooks';
+import { setSearchValue } from '../../features/search';
+
+type SearchOptions = {
+  searchValue: string;
+  sortBy: string;
+  perPage: number;
+  currentPage: number;
+};
 
 export const HomePage = () => {
-  const [searchValue, setSearchValue] = useState(localStorage.getItem('searchValue') || '');
-  const [isLoading, setIsLoading] = useState(true);
-  const [images, setImages] = useState<TImage[]>([]);
-  const [error, setError] = useState<Error | null>(null);
-
-  const fetchImages = async (searchValue: string) => {
-    setIsLoading(true);
-    const params: TSearchImagesParams = {
-      tags: searchValue,
-      extras: 'url_n,owner_name,date_taken,views',
-      page: '1',
-      sort: 'interestingness-desc',
-      per_page: '100',
-    };
-
-    try {
-      const fetchedImages = await flickr('photos.search', params);
-      setImages(fetchedImages.photos.photo.filter((item: TImage) => item.url_n));
-      setError(null);
-    } catch (err) {
-      setImages([]);
-      setError(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const { searchValue, images, error, isLoading } = useAppSelector((state) => state.search);
 
   useEffect(() => {
-    const localStorageValue = localStorage.getItem('searchValue');
-    if (localStorageValue) {
-      setSearchValue(localStorageValue);
-      fetchImages(localStorageValue);
-    } else {
-      fetchImages('cats');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => {
+      localStorage.setItem('searchValue', searchValueRef.current as string);
+    };
   }, []);
-
-  const handleSearchBarChange = (value: string) => {
-    setSearchValue(value);
-  };
-
-  const handleSearchBarSubmit = () => {
-    fetchImages(searchValue);
-    localStorage.setItem('searchValue', searchValue);
-  };
 
   const notFound = !error && !isLoading && images.length === 0 ? 'Nothing found' : null;
 
   return (
     <div data-testid="home-page">
-      <SearchBar
-        searchValue={searchValue}
-        onSearchBarChange={handleSearchBarChange}
-        onSearchBarSubmit={handleSearchBarSubmit}
-      />
-      {error && <div>Error occurred</div>}
-      {isLoading ? <Spinner /> : <Cards cards={images} />}
+      <SearchBar />
+      <SearchOptions />
+      {error && <div>{error}</div>}
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <Cards cards={images} />
+        </>
+      )}
       {notFound}
     </div>
   );
