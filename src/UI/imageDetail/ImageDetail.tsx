@@ -1,37 +1,41 @@
-import React from 'react';
-import style from './ImageDetail.module.scss';
+import React, { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { fetchImageData } from '../../features/detail';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { TImageInfo } from '../../types';
+import Spinner from '../spinner/Spinner';
+import style from './ImageDetail.module.scss';
 
-type TImageDetailProps = {
-  imageInfo: TImageInfo;
-  imageUrl: string;
-  handleClose: () => void;
-};
+export const ImageDetail = () => {
+  const { isLoading, imageInfo, imageUrl } = useAppSelector((state) => state.detail);
 
-export const ImageDetail = ({ imageInfo, imageUrl, handleClose }: TImageDetailProps) => {
-  const stopPropagation = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
-  };
-  const { title, owner, description, dates, views } = imageInfo;
-  console.log('imageInfo', imageInfo);
-  return (
-    <div className={style.popup} data-testid="image-detail">
-      <div className={style.popupBody} onClick={handleClose}>
-        <div className={style.popupContent} onClick={stopPropagation}>
-          <img src={imageUrl} className={style.popupImg} />
-          <h1 className={style.popupTitle}>{title._content}</h1>
-          <p className={style.popupText}>By {owner.username}</p>
-          <p className={style.popupText}>Location {owner.location}</p>
-          <p className={style.popupText}>Taken on {dates.taken}</p>
-          <p className={style.popupText}>Views: {views}</p>
-          <h2 className={style.popupSubtitle}>Description</h2>
-          <p
-            className={style.popupDesc}
-            dangerouslySetInnerHTML={{ __html: description._content }}
-          ></p>
-          <button className={style.closeBtn} onClick={handleClose}></button>
-        </div>
+  const dispatch = useAppDispatch();
+  const { currentImageId } = useParams();
+
+  useEffect(() => {
+    dispatch(fetchImageData(currentImageId as string));
+  }, [dispatch]);
+
+  return isLoading ? (
+    <Spinner />
+  ) : (
+    <div className={style.popupBody} data-testid="image-detail">
+      <div className={style.popupContent}>
+        <img src={imageUrl} className={style.popupImg} />
+        <h1 className={style.popupTitle}>{(imageInfo as TImageInfo).title._content}</h1>
+        <p className={style.popupText}>By {(imageInfo as TImageInfo).owner.username}</p>
+        <p className={style.popupText}>Taken on {(imageInfo as TImageInfo).dates.taken}</p>
+        <p className={style.popupText}>Views: {(imageInfo as TImageInfo).views}</p>
+        <h2 className={style.popupSubtitle}>Description</h2>
+        <p
+          className={style.popupDesc}
+          dangerouslySetInnerHTML={{ __html: (imageInfo as TImageInfo).description._content }}
+        ></p>
       </div>
+      <Link to="/" className={style.back}>
+        <div className={style.backImg}></div>
+        Back to search
+      </Link>
     </div>
   );
 };

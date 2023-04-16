@@ -8,6 +8,7 @@ import Layout from './UI/layout/Layout';
 import './App.css';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { fetchImages, setSearchValue } from './features/search';
+import ImageDetail from './UI/imageDetail/ImageDetail';
 
 export const App = () => {
   const { searchValue, sortBy, resultsPerPage, currentPage } = useAppSelector(
@@ -39,6 +40,7 @@ export const App = () => {
           <Route index element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="form" element={<FormPage />} />
+          <Route path="images/:currentImageId" element={<ImageDetail />} />
           <Route path="*" element={<NFPage />} />
         </Route>
       </Routes>
