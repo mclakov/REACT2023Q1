@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Form from '../../UI/form/Form';
 import UserCard from '../../UI/usercard/UserCard';
-import style from './FormPage.module.scss';
+import { addUser } from '../../features/form';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { TUserCardModel } from '../../types';
+import style from './FormPage.module.scss';
 
-const FormPage = () => {
-  const [formValues, setFormValues] = useState<TUserCardModel[]>([]);
+export const FormPage = () => {
+  const { formValues } = useAppSelector((state) => state.search);
+  const dispatch = useAppDispatch();
 
-  function setValues(data: TUserCardModel) {
-    setFormValues([...formValues, data]);
-  }
+  const setValues = (user: TUserCardModel) => {
+    dispatch(addUser(user));
+  };
 
   return (
     <div data-testid="form-page">
       <Form setValues={setValues} />
       <div className={style.userCards} data-testid="user-cards">
-        {formValues &&
-          formValues.map((item: TUserCardModel, index: number) => (
-            <UserCard key={index} {...item} />
-          ))}
+        {formValues && formValues.map((item, index) => <UserCard key={index} {...item} />)}
       </div>
     </div>
   );
