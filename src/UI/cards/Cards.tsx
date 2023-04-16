@@ -9,7 +9,6 @@ type CardsProps = {
 };
 
 export const Cards = ({ cards }: CardsProps) => {
-
   const navigate = useNavigate();
 
   const handleClick = (id: string) => {

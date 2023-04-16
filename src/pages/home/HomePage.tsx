@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { flickr } from '../../common/flickr';
+import React, { useEffect, useRef } from 'react';
 import Cards from '../../UI/cards/Cards';
 import Spinner from '../../UI/spinner/Spinner';
 import SearchBar from '../../UI/searchbar/SearchBar';
-import { TImage, TSearchImagesParams } from '../../types';
 import { useAppSelector } from '../../hooks';
-import { setSearchValue } from '../../features/search';
 
 export const HomePage = () => {
   const { searchValue, images, error, isLoading } = useAppSelector((state) => state.search);
+
+  const searchValueRef = useRef('');
+  searchValueRef.current = searchValue;
 
   useEffect(() => {
     return () => {

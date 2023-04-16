@@ -1,13 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setSearchValue, setCurrentPage, resetPage, fetchImages } from '../../features/search';
+import { setSearchValue, setCurrentPage, resetPage } from '../../features/search';
+import { fetchImages } from '../../features/thunks';
 import style from './SearchBar.module.scss';
 
 export const SearchBar = () => {
   const { searchValue, sortBy, resultsPerPage, currentPage } = useAppSelector(
     (state) => state.search
   );
+
   const dispatch = useAppDispatch();
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
     dispatch(setSearchValue(value));

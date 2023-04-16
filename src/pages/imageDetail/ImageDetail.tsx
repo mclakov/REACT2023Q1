@@ -14,7 +14,7 @@ export const ImageDetail = () => {
 
   useEffect(() => {
     dispatch(fetchImageData(currentImageId as string));
-  }, [dispatch]);
+  }, [dispatch, currentImageId]);
 
   return isLoading ? (
     <Spinner />

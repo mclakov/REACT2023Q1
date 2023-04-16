@@ -8,7 +8,8 @@ import ImageDetail from './pages/imageDetail/ImageDetail';
 import Layout from './UI/layout/Layout';
 import './App.css';
 import { useAppDispatch, useAppSelector } from './hooks';
-import { fetchImages, setSearchValue } from './features/search';
+import { setSearchValue } from './features/search';
+import { fetchImages } from './features/thunks';
 
 export const App = () => {
   const { searchValue, sortBy, resultsPerPage, currentPage } = useAppSelector(

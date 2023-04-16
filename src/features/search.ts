@@ -1,13 +1,9 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { flickr } from '../common/flickr';
-import { TImage, TSearchImagesParams, TUserCardModel } from '../types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TImage } from '../types';
+import { fetchImages } from './thunks';
 
 export enum SortType {
-  DatePostedDesc = 'date-posted-desc',
-  DatePostedAsc = 'date-posted-asc',
   InterestingDesc = 'interestingness-desc',
-  InterestingAsc = 'interestingness-asc',
-  Relevance = 'relevance',
 }
 
 export type TSearchState = {
@@ -21,8 +17,7 @@ export type TSearchState = {
   isLoading: boolean;
   error: string;
   images: TImage[];
-  formValues: TUserCardModel[];
-  [key: string]: string | SortType | number | boolean | TImage[] | TUserCardModel[];
+  [key: string]: string | SortType | number | boolean | TImage[];
 };
 
 const initialState: TSearchState = {
@@ -36,39 +31,9 @@ const initialState: TSearchState = {
   isLoading: true,
   error: '',
   images: [],
-  formValues: [],
 };
 
 const pageNumberLimit = 5;
-
-type SearchOptions = {
-  searchValue: string;
-  sortBy: string;
-  resultsPerPage: number;
-  currentPage: number;
-};
-export const fetchImages = createAsyncThunk(
-  'search/fetchImages',
-  async (searchOptions: SearchOptions, { rejectWithValue }) => {
-    const { searchValue, sortBy, resultsPerPage, currentPage } = searchOptions;
-    const params: TSearchImagesParams = {
-      tags: searchValue,
-      extras: 'url_n,owner_name,date_taken,views',
-      page: currentPage.toString(),
-      sort: sortBy,
-      per_page: resultsPerPage.toString(),
-    };
-
-    try {
-      const response = await flickr('photos.search', params);
-      const totalPages = response.photos.pages;
-      const images = response.photos.photo.filter((item: TImage) => item.url_n);
-      return { images, totalPages };
-    } catch (err) {
-      return rejectWithValue((err as Error).message);
-    }
-  }
-);
 
 export const searchSlice = createSlice({
   name: 'search',
@@ -120,7 +85,7 @@ export const searchSlice = createSlice({
       state.images = action.payload.images;
       state.totalPages = action.payload.totalPages;
     });
-    builder.addCase(fetchImages.rejected, (state, action) => {
+    builder.addCase(fetchImages.rejected, (state) => {
       state.isLoading = false;
       state.error = 'Error occurred';
       state.images = [];
@@ -129,13 +94,6 @@ export const searchSlice = createSlice({
   },
 });
 
-export const {
-  setSearchValue,
-  setSearchOptions,
-  setCurrentPage,
-  setPrevPage,
-  setNextPage,
-  resetPage,
-} = searchSlice.actions;
+export const { setSearchValue, setCurrentPage, resetPage } = searchSlice.actions;
 
 export default searchSlice.reducer;

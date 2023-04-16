@@ -1,43 +1,20 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { flickr } from '../common/flickr';
-import { TImageInfo, TSearchInfoParams, TImageSize } from '../types';
+import { createSlice } from '@reduxjs/toolkit';
+import { TImageInfo } from '../types';
+import { fetchImageData } from './thunks';
 
-export type TDetailState = {
+export type DetailState = {
   isLoading: boolean;
   error: string;
   imageInfo: TImageInfo | null;
   imageUrl: string;
 };
 
-const initialState: TDetailState = {
+const initialState: DetailState = {
   isLoading: true,
   error: '',
   imageInfo: null,
   imageUrl: '',
 };
-
-export const fetchImageData = createAsyncThunk(
-  'detail/fetchImageData',
-  async (currentImageId: string, { rejectWithValue }) => {
-    const params: TSearchInfoParams = {
-      photo_id: currentImageId,
-    };
-
-    try {
-      const fetchedImageInfo = await flickr('photos.getInfo', params);
-      const imageInfo = fetchedImageInfo.photo;
-      const fetchedImageSizes = await flickr('photos.getSizes', params);
-      const sizes = fetchedImageSizes.sizes.size;
-      const imageUrl = sizes
-        .reverse()
-        .filter((s: TImageSize) => s.label === 'Small' || s.label === 'Large')[0].source;
-
-      return { imageInfo, imageUrl };
-    } catch (err) {
-      return rejectWithValue((err as Error).message);
-    }
-  }
-);
 
 export const detail = createSlice({
   name: 'detail',
@@ -56,7 +33,7 @@ export const detail = createSlice({
     });
     builder.addCase(fetchImageData.rejected, (state) => {
       state.isLoading = false;
-      state.error = 'Error occurred';
+      state.error = 'Error occured';
       state.imageInfo = null;
       state.imageUrl = '';
     });
