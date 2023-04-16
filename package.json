@@ -22,6 +22,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.3",
     "@types/jest": "^29.5.0",
     "@typescript-eslint/eslint-plugin": "^5.22.0",
     "@typescript-eslint/parser": "^5.22.0",
@@ -42,6 +43,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0",
     "sort-by": "^0.0.2",
     "vite-plugin-require": "^1.1.10"
