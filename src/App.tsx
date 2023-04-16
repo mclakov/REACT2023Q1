@@ -4,11 +4,11 @@ import HomePage from './pages/home/HomePage';
 import NFPage from './pages/nf/NFPage';
 import AboutPage from './pages/about/AboutPage';
 import FormPage from './pages/form/FormPage';
+import ImageDetail from './pages/imageDetail/ImageDetail';
 import Layout from './UI/layout/Layout';
 import './App.css';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { fetchImages, setSearchValue } from './features/search';
-import ImageDetail from './UI/imageDetail/ImageDetail';
 
 export const App = () => {
   const { searchValue, sortBy, resultsPerPage, currentPage } = useAppSelector(

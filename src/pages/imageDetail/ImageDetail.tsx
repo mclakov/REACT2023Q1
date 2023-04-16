@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { fetchImageData } from '../../features/detail';
+import { fetchImageData } from '../../features/thunks';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { TImageInfo } from '../../types';
-import Spinner from '../spinner/Spinner';
+import Spinner from '../../UI/spinner/Spinner';
 import style from './ImageDetail.module.scss';
 
 export const ImageDetail = () => {
