@@ -1,5 +1,7 @@
 import { render } from '@testing-library/react';
 import Cards from './Cards';
+import { Provider } from 'react-redux';
+import { store } from '../../store/store';
 
 const mockResponse = [
   {
@@ -101,12 +103,20 @@ const mockResponse = [
 
 describe('Cards component', () => {
   it('Cards renders', () => {
-    const { getByTestId } = render(<Cards cards={mockResponse} />);
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <Cards cards={mockResponse} />
+      </Provider>
+    );
     const cards = getByTestId('cards');
     expect(cards).toBeDefined();
   });
   it('Cards renders without data', () => {
-    const { queryByTestId } = render(<Cards cards={[]} />);
+    const { queryByTestId } = render(
+      <Provider store={store}>
+        <Cards cards={[]} />
+      </Provider>
+    );
     const card = queryByTestId('card');
     expect(card).toBeNull();
   });

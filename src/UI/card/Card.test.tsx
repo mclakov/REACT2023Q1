@@ -1,5 +1,7 @@
 import { render } from '@testing-library/react';
 import Card from './Card';
+import { Provider } from 'react-redux';
+import { store } from '../../store/store';
 
 const mockResponse = {
   id: '51997149627',
@@ -17,7 +19,11 @@ const onClick = jest.fn();
 
 describe('Card component', () => {
   it('Card renders', () => {
-    const { getByTestId } = render(<Card card={mockResponse} handleClick={onClick} />);
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <Card card={mockResponse} handleClick={onClick} />
+      </Provider>
+    );
     const card = getByTestId('card');
     expect(card).toBeDefined();
   });

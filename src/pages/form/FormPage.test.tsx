@@ -2,6 +2,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import FormPage from './FormPage';
+import { store } from '../../store/store';
+import { Provider } from 'react-redux';
 
 describe('FormPage component', () => {
   it('should render user card', async () => {
@@ -24,7 +26,11 @@ describe('FormPage component', () => {
   });
 
   it('should show an error for empty input fields', async () => {
-    const { getByTestId, getByPlaceholderText, findByTestId } = render(<FormPage />);
+    const { getByTestId, getByPlaceholderText, findByTestId } = render(
+      <Provider store={store}>
+        <FormPage />
+      </Provider>
+    );
     const firstNameInput = getByPlaceholderText('First name');
     userEvent.type(firstNameInput, 'name');
 
