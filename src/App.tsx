@@ -28,10 +28,12 @@ export const App = () => {
       dispatch(setSearchValue('cats'));
       dispatch(fetchImages({ searchValue: 'cats', sortBy, resultsPerPage, currentPage }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchImages({ searchValue, sortBy, resultsPerPage, currentPage }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortBy, resultsPerPage, currentPage]);
 
   return (
