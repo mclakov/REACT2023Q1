@@ -33,7 +33,7 @@ export const detail = createSlice({
     });
     builder.addCase(fetchImageData.rejected, (state) => {
       state.isLoading = false;
-      state.error = 'Error occured';
+      state.error = 'Error occurred';
       state.imageInfo = null;
       state.imageUrl = '';
     });

@@ -2,6 +2,7 @@ import { render } from '@testing-library/react';
 import Cards from './Cards';
 import { Provider } from 'react-redux';
 import { store } from '../../store/store';
+import { BrowserRouter } from 'react-router-dom';
 
 const mockResponse = [
   {
@@ -105,7 +106,9 @@ describe('Cards component', () => {
   it('Cards renders', () => {
     const { getByTestId } = render(
       <Provider store={store}>
-        <Cards cards={mockResponse} />
+        <BrowserRouter>
+          <Cards cards={mockResponse} />
+        </BrowserRouter>
       </Provider>
     );
     const cards = getByTestId('cards');
@@ -114,7 +117,9 @@ describe('Cards component', () => {
   it('Cards renders without data', () => {
     const { queryByTestId } = render(
       <Provider store={store}>
-        <Cards cards={[]} />
+        <BrowserRouter>
+          <Cards cards={[]} />
+        </BrowserRouter>
       </Provider>
     );
     const card = queryByTestId('card');

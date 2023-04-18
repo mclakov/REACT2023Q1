@@ -2,6 +2,7 @@ import { render } from '@testing-library/react';
 import Card from './Card';
 import { Provider } from 'react-redux';
 import { store } from '../../store/store';
+import { BrowserRouter } from 'react-router-dom';
 
 const mockResponse = {
   id: '51997149627',
@@ -21,7 +22,9 @@ describe('Card component', () => {
   it('Card renders', () => {
     const { getByTestId } = render(
       <Provider store={store}>
-        <Card card={mockResponse} handleClick={onClick} />
+        <BrowserRouter>
+          <Card card={mockResponse} handleClick={onClick} />
+        </BrowserRouter>
       </Provider>
     );
     const card = getByTestId('card');

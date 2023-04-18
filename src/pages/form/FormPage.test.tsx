@@ -4,22 +4,29 @@ import '@testing-library/jest-dom';
 import FormPage from './FormPage';
 import { store } from '../../store/store';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 describe('FormPage component', () => {
   it('should render user card', async () => {
-    const { getByPlaceholderText, getByTestId } = render(<FormPage />);
+    const { getByPlaceholderText, getByTestId } = render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <FormPage />
+        </BrowserRouter>
+      </Provider>
+    );
     const firstNameInput = getByPlaceholderText('First name');
     const lastNameInput = getByPlaceholderText('Last name');
     const agreeInput = getByTestId('agree');
     const birthDateInput = getByTestId('birthDate');
 
-    userEvent.type(firstNameInput, 'name');
-    userEvent.type(lastNameInput, 'surname');
-    userEvent.type(birthDateInput, '2022-04-04');
-    userEvent.click(agreeInput);
+    await userEvent.type(firstNameInput, 'name');
+    await userEvent.type(lastNameInput, 'surname');
+    await userEvent.type(birthDateInput, '2022-04-04');
+    await userEvent.click(agreeInput);
 
     const btn = getByTestId('formSubmit');
-    userEvent.click(btn);
+    await userEvent.click(btn);
 
     const card = await screen.findByTestId('user-card');
     expect(card).toBeInTheDocument();
@@ -28,14 +35,16 @@ describe('FormPage component', () => {
   it('should show an error for empty input fields', async () => {
     const { getByTestId, getByPlaceholderText, findByTestId } = render(
       <Provider store={store}>
-        <FormPage />
+        <BrowserRouter>
+          <FormPage />
+        </BrowserRouter>
       </Provider>
     );
     const firstNameInput = getByPlaceholderText('First name');
-    userEvent.type(firstNameInput, 'name');
+    await userEvent.type(firstNameInput, 'name');
 
     const btn = getByTestId('formSubmit');
-    userEvent.click(btn);
+    await userEvent.click(btn);
 
     expect(await findByTestId('errorLastName')).toBeInTheDocument();
     expect(await findByTestId('errorBirthDate')).toBeInTheDocument();

@@ -37,7 +37,7 @@ export const App = () => {
   }, [sortBy, resultsPerPage, currentPage]);
 
   return (
-    <div className="App">
+    <div className="App" data-testid="app">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
