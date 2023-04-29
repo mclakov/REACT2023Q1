@@ -12,7 +12,7 @@ module.exports = {
     '**/*.tsx',
     '!**/node_modules/**',
     '!**/vendor/**',
-    '!**/main.tsx',
+    '!**/entry-client.tsx',
     '!**/pages/index.tsx',
   ],
   modulePaths: [compilerOptions.baseUrl],
