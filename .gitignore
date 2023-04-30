@@ -27,3 +27,6 @@ dist-ssr
 /coverage/
 # Coverage directory used by tools like istanbul
 coverage/
+
+.env
+.nyc_output
