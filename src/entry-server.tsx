@@ -5,11 +5,16 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 
 export function render(url: string) {
-  return ReactDOMServer.renderToString(
-    <StaticRouter location={url}>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </StaticRouter>
-  );
+  return [
+    store,
+    (url: string, options: ReactDOMServer.RenderToPipeableStreamOptions) =>
+      ReactDOMServer.renderToPipeableStream(
+        <StaticRouter location={url}>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </StaticRouter>,
+        options
+      ),
+  ];
 }
