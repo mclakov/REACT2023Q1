@@ -11,6 +11,6 @@ describe('Test app functionality', () => {
     cy.url().should('include', '/forms');
 
     cy.visit('/ttt');
-    cy.get('h1').should('contain', '404');
+    cy.get('h1').should('contain', 'Not Found Page');
   });
 });
