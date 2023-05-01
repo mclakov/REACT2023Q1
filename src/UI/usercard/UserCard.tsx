@@ -7,8 +7,8 @@ const UserCard = (props: TUserCardModel) => {
   const src = props.photo[0] ? URL.createObjectURL(props.photo[0]) : avatar;
 
   return (
-    <div className={style.userCard} data-testid="user-card">
-      <img src={src} className={style.userImg} />
+    <div className={style.userCard} data-testid="user-card" id="user-card">
+      <img src={src} className={style.userImg} id="user-img" />
       <div className={style.row}>
         <div className={`${style.col} ${style.userTitle}`}>First Name:</div>
         <div className={`${style.col} ${style.userText}`}>{props.firstName}</div>

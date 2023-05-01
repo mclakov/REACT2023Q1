@@ -28,6 +28,7 @@ export const SearchBar = () => {
   return (
     <form className={style.searchbar} onSubmit={handleSubmit}>
       <input
+        name="search"
         type="text"
         className={style.searchbarInput}
         value={searchValue}

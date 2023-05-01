@@ -4,7 +4,7 @@ import App from './App';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 
-export function render(url: string) {
+export function render() {
   return [
     store,
     (url: string, options: ReactDOMServer.RenderToPipeableStreamOptions) =>

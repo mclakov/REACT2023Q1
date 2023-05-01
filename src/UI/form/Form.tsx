@@ -15,7 +15,7 @@ export const Form = ({ setValues }: TFormProps) => {
       firstName: '',
       lastName: '',
       birthDate: '',
-      agree: false,
+      agree: true,
     },
   });
 
@@ -45,6 +45,7 @@ export const Form = ({ setValues }: TFormProps) => {
           </p>
           <input
             type="text"
+            id="firstnameInput"
             className={style.formInput}
             {...register('firstName', { required: true })}
             placeholder="First name"
@@ -62,6 +63,7 @@ export const Form = ({ setValues }: TFormProps) => {
           </p>
           <input
             type="text"
+            id="lastnameInput"
             className={style.formInput}
             {...register('lastName', { required: true })}
             placeholder="Last name"
@@ -79,6 +81,7 @@ export const Form = ({ setValues }: TFormProps) => {
           </p>
           <input
             type="date"
+            id="dateInput"
             className={style.formInput}
             {...register('birthDate', { required: true })}
             data-testid="birthDate"
@@ -136,13 +139,9 @@ export const Form = ({ setValues }: TFormProps) => {
             </p>
           )}
         </label>
-        <input
-          className={style.formBtn}
-          disabled={hasError()}
-          type="submit"
-          value="Submit"
-          data-testid="formSubmit"
-        />
+        <button className="registration-form__button button" type="submit" disabled={hasError()}>
+          Submit
+        </button>
       </form>
     </div>
   );
